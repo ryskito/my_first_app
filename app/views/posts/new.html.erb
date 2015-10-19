@@ -5,11 +5,16 @@
     <p>
       <%= f.label :title %><br>
       <%= f.text_field :title %>
+      <% if @post.errors.any? %>
+          <%= @post.errors.messages[:title][0] %>
+      <% end %>
     </p>
+
     <p>
       <%= f.label :content %><br>
       <%= f.text_area :content %>
     </p>
+
     <p>
       <%= f.label :picture %><br>
       <%= f.file_field :picture %>
