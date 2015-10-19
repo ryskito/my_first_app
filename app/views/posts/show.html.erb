@@ -1,3 +1,14 @@
 <h1>
   <%= @post.title %>
 </h1>
+
+<p>
+  <strong>Content:</strong><br>
+  <%= @post.content %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%= image_tag(@post.picture_url, :width => 600) if @post.picture.present? %>
+</p>
+
