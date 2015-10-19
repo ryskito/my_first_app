@@ -21,6 +21,29 @@ class PostsController < ApplicationController
     end
   end
 
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to posts_path
+    else
+      render 'edit'
+    end
+  end
+
+#  def destroy
+#    @post.destroy
+#    respond_to do |format|
+#      format.html { redirect_to posts_url }
+#      f#ormat.json { head :no_content }
+#    end
+#  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to posts_path
+  end
+
   private
 
     def post_params
