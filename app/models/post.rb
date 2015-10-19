@@ -1,5 +1,7 @@
 class Post < ActiveRecord::Base
 
-  validates :title, presence: { message: "plz fill in the content!"}
+  belongs_to :category
+
+  validates :title, presence: { message: "plz fill in the title!"}
 
 end

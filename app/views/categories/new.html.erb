@@ -1,0 +1,16 @@
+<h1>Add New Category</h1>
+
+<%= form_for(@category) do |f| %>
+
+    <p>
+      <%= f.label :title %><br>
+      <%= f.text_field :title %>
+      <% if @post.errors.any? %>
+          <%= @post.errors.messages[:title][0] %>
+      <% end %>
+    </p>
+
+    <p>
+      <%= f.submit %>
+    </p>
+
