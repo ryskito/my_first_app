@@ -3,6 +3,11 @@
 </h1>
 
 <p>
+  <%# @category_name %>
+      <strong>Category: </strong> <%= @post.category ? @post.category.name : "のーかてごり" %><br>
+</p>
+
+<p>
   <strong>Content:</strong><br>
   <%= @post.content %>
 </p>

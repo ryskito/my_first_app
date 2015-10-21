@@ -3,10 +3,13 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all
+    @posts = Post.order("created_at DESC").page params[:page]
   end
 
   def show
+    if@post.category
+      @category_name = @post.category.name
+    end
   end
 
   def new
@@ -33,13 +36,6 @@ class PostsController < ApplicationController
     end
   end
 
-#  def destroy
-#    @post.destroy
-#    respond_to do |format|
-#      format.html { redirect_to posts_url }
-#      f#ormat.json { head :no_content }
-#    end
-#  end
 
   def destroy
     @post.destroy
@@ -49,11 +45,13 @@ class PostsController < ApplicationController
   private
 
     def post_params
-      params[:post].permit(:title, :content)
+      params.require(:post).permit(:title, :content, :category_id)
     end
 
     def set_post
       @post = Post.find(params[:id])
     end
+
+
 
 end

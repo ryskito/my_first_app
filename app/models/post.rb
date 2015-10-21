@@ -4,4 +4,6 @@ class Post < ActiveRecord::Base
 
   validates :title, presence: { message: "plz fill in the title!"}
 
+  paginates_per 10
+
 end

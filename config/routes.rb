@@ -1,8 +1,11 @@
 BlogApp::Application.routes.draw do
 
-  resources :posts do
-    resources :categories
-  end
+  # resources :posts do
+  #   resources :categories
+  # end
+  resources :posts
+  resources :categories
+
 
   root 'posts#index'
 
