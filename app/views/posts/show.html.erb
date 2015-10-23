@@ -3,6 +3,11 @@
 </h1>
 
 <p>
+  posted by: <%= @post.user.username %>
+</p>
+
+
+<p>
   <%# @category_name %>
       <strong>Category: </strong> <%= @post.category ? @post.category.name : "のーかてごり" %><br>
 </p>
@@ -14,6 +19,12 @@
 
 <p>
   <strong>Picture:</strong>
-  <%= image_tag(@post.picture_url, :width => 600) if @post.picture.present? %>
+  <%= image_tag(@post.picture_url) if @post.picture.present? %>
 </p>
 
+<p>
+  [<%= link_to 'edit', edit_post_path %>]
+<p>
+  [<%= link_to 'delete', post_path , method: :delete, data: { confirm: 'Are you sure?' } %>]
+</p>
+</p>

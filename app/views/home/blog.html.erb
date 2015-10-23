@@ -1,4 +1,6 @@
-<h1>ぶろぐ</h1>
+<h1>Hello,
+  <%= current_user.username %>さん
+</h1>
 
 <p>
   <%= form_tag posts_path, :method => 'get' do %>

@@ -1,6 +1,11 @@
 <%= form_for(@post) do |f| %>
 
     <p>
+      <%= f.label :user_id %> name:
+      <%= f.collection_select :user_id, User.all, :id, :username %>
+    </p>
+
+    <p>
       <%= f.label :title %><br>
       <%= f.text_field :title %>
       <% if @post.errors.any? %>
@@ -11,9 +16,8 @@
     <p>
       <%= f.label :category_id %><br>
       <%= f.select :category_id, Category.all.map {|c| [c.name, c.id]}, {} %>
-      <p>
+      <br>
         <%= link_to 'create new category', new_category_path %>
-      </p>
     </p>
 
     <p>

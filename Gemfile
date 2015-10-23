@@ -20,6 +20,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 gem 'kaminari'
 gem 'carrierwave'
+gem 'devise'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
