@@ -1,93 +1,76 @@
 class PostsController < ApplicationController
-
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
-  def index
-    # @posts = Post.search(params[:search])
-    # if params[:search]
-    #   @posts = Post.where(['title LIKE ?', "%#{params[:search]}%"]).order("created_at DESC").page params[:page]
-    # else
-    #    # for index
-      @posts = Post.order("created_at DESC").page params[:page]
-    # end
+  before_action :edit_post, only: [:edit, :destroy]
 
+  def index
+     # for index
+     @posts = Post.order("created_at DESC").page params[:page]
+     if params[:user_id] || params[:category_id] || params[:keyword]
+     # 検索フォームにいずれかが入力されたら検索結果ページ表示するようにする
+       @posts = Post.search_user(params[:user_id])
+                    .search_category(params[:category_id])
+                    .search_keyword(params[:keyword])
+                    .order("created_at DESC")
+                    .page params[:page]
+     end
   end
 
-  # def find
-  #
-  # end
-
   def show
-    @user = current_user
-    # @user = User.find(params[:id])
-    # @posts = Post.where(user_id: @user.id)
-
-    # if @post.category
-    #   @category_name = @post.category.name
-    # end
   end
 
   def new
-    @user = current_user
     @post = Post.new
+    @post.user_id = current_user
   end
-
-  # def create
-  #   @post = Post.new(post_params)
-  #   if @post.save
-  #     redirect_to posts_path
-  #   else
-  #     render 'new'
-  #   end
-  # end
 
   def create
     @post = Post.new(post_params)
-    @user = current_user
-    # @post.user_id = @user.name
-    if @post.save
-      redirect_to posts_path
-    else
-      render 'new'
-      # redirect_to @post, error: "You don't have permission."
-    end
-    # respond_to do |format|
-    #   format.html { redirect_to posts_path }
-    #   format.json { head :no_content }
-    # end
+      @post.user_id = current_user.id
+      @post.save
+      redirect_to @post
   end
 
   def edit
   end
 
   def update
-    if @post.update(post_params)
-      redirect_to posts_path
+    if @post.created_by?(current_user)
+      @post.update(post_params)
+      redirect_to post_path
     else
-      render 'edit'
+      redirect_to posts_path
     end
   end
 
   def destroy
-    @post.destroy
-    redirect_to posts_path
+    if @post.user_id == current_user.id
+      @post.destroy
+      redirect_to posts_path
+    end
   end
 
 
   private
 
     def post_params
-      params.require(:post).permit(:title, :content, :category_id, :picture, :user_id)
+      params.require(:post).permit(:title, :content, :category_id, :picture)
     end
 
     def set_post
       @post = Post.find(params[:id])
     end
 
+    def edit_post
+      if @post.user_id == current_user.id
+      else
+        redirect_to posts_path
+      end
+    end
+
     def search_params
       params.permit(:keyword)
     end
-
-
 
 end

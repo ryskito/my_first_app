@@ -1,30 +1,33 @@
-<h1>
-  <%= @post.title %>
-</h1>
+<div class="container">
+  <!--<div class="blog-header">-->
+    <!--<h1 class="blog-title">ぶろぐ</h1>-->
+    <!--<p class="lead blog-description">Ruby on Railsの練習</p>-->
+  <!--</div>-->
 
-<p>
-  posted by: <%= @post.user.username %>
-</p>
+  <div class="row">
+    <div class="col-sm-8 blog-main">
+      <div class="blog-post">
+        <h2 class="blog-post-title"><%= @post.title %></h2>
+        <p class="blog-post-meta"><strong>Category: </strong> <%= @post.category ? @post.category.name : "のーかてごり" %></p>
+        <p class="blog-post-meta"><%= @post.created_at %> by <strong><%= @post.user.username %></strong></p>
+        <hr>
+        <!--<strong>Content: </strong><br>-->
+          <h3><%= @post.content %></h3>
+        <p class="blog-post-meta"><%= image_tag(@post.picture_url) if @post.picture.present? %></p>
+
+      </div><!-- /.blog-post -->
+    </div><!-- /.blog-main -->
+
+  <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+    <div class="sidebar-module sidebar-module-inset">
+      <% if @post.created_by?(current_user) %>
+          <p><%= link_to '[edit]', edit_post_path(@post) %></p>
+          <p><%= link_to '[delete]', post_path(@post) , method: :delete, data: { confirm: 'Are you sure?' } %></p>
+      <% end %>
+    </div>
+  </div><!-- /.blog-sidebar -->
+
+  </div><!-- /.row -->
+</div><!-- /.container -->
 
 
-<p>
-  <%# @category_name %>
-      <strong>Category: </strong> <%= @post.category ? @post.category.name : "のーかてごり" %><br>
-</p>
-
-<p>
-  <strong>Content:</strong><br>
-  <%= @post.content %>
-</p>
-
-<p>
-  <strong>Picture:</strong>
-  <%= image_tag(@post.picture_url) if @post.picture.present? %>
-</p>
-
-<p>
-  [<%= link_to 'edit', edit_post_path %>]
-<p>
-  [<%= link_to 'delete', post_path , method: :delete, data: { confirm: 'Are you sure?' } %>]
-</p>
-</p>

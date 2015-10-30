@@ -6,11 +6,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # devise :database_authenticatable, :registerable,
-  #        :confirmable, :recoverable, stretches: 20
-
-  has_many :posts
+   has_many :posts
   has_many :categories, through: :posts
 
+  validates :username, presence: true, length: { maximum: 20 }
 
 end

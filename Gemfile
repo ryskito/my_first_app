@@ -21,6 +21,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'kaminari'
 gem 'carrierwave'
 gem 'devise'
+# gem 'less-rails' #Rails_de_less_wo_tsukaeruyounisuru
+# gem 'twitter-bootstrap3-rails' #Bootstrap_no_Hontai
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

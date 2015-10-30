@@ -1,0 +1,20 @@
+<%= form_tag({action: :index}, {method: :get}) do  %>
+
+  <p class="navbar-text pull-right">
+
+    <%# （ユーザー名）プルダウン選択 %>
+    <%= label_tag :user_id, 'Blogger: ' %>
+    <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :username, selected: @user_id), include_blank: true %><br>
+
+    <%# （カテゴリ名）プルダウン選択 %>
+    <%= label_tag :category_id, 'Category: ' %>
+    <%= select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name, selected: @category_id), include_blank: true %><br>
+
+    <%# （titleとcontent）テキストボックス %>
+    <%= label_tag :title, 'Keyword: ' %>
+    <%= text_field_tag :keyword, params[:keyword] %><br>
+    <%= submit_tag "Search", :title => nil %>
+
+  </p>
+
+<% end %>
